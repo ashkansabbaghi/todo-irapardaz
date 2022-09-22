@@ -1,32 +1,48 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
-  </div>
+  <v-app>
+    <!-- header -->
+ <v-card flat>
+    <v-toolbar
+      color="primary"
+      dark
+      extended
+      flat
+    >
+    </v-toolbar>
+
+    <v-card
+      class="mx-auto"
+      max-width="800"
+      style="margin-top: -64px;"
+    >
+      <v-toolbar flat >
+        <v-toolbar-title class="grey--text justify-center">
+         IRAPARDAZ
+        </v-toolbar-title>
+
+
+      </v-toolbar>
+
+      <v-divider></v-divider>
+
+      <v-card-text >
+    <v-main>
+
+      <router-view/>
+    </v-main>
+
+      </v-card-text>
+    </v-card>
+  </v-card>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+export default {
+  name: 'App',
+  data: () => ({
+    //
+  }),
+};
+</script>
