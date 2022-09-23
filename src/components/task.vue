@@ -1,7 +1,10 @@
 <template>
   <v-col>
-    <v-card-title v-if="isTask">Remaining Task :</v-card-title>
-    <v-card-title v-else>Done :</v-card-title>
+    <v-card-title>
+      <span class="text--disabled" v-text="isTask ? 'Remaining Task :' : 'Done :'"></span>
+      <span class="ml-2" v-if="todos.length > 0">{{ todos.length }}</span>
+    </v-card-title>
+
     <v-slide-x-transition group name="list" tag="ul">
       <!--  replace key todo -> todo.id -->
       <v-row class="item" v-for="(todo, i) in todos" :key="todo">
