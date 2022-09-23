@@ -92,22 +92,19 @@ export default {
       const val = this.newTodo;
       if (!val) return;
       // console.log(val);
-      this.tasks.push(val);
-      this.tasks.reverse();
+      this.saveTask(val);
       this.newTodo = "";
     },
 
     taskToDone(val, i) {
       // console.log("taskToDone", i);
       this.tasks.splice(i, 1);
-      this.tasksDone.push(val);
-      this.tasksDone.reverse();
+      this.saveTaskDone(val);
     },
     doneToTask(val, i) {
       // console.log("doneToTask", i);
       this.tasksDone.splice(i, 1);
-      this.tasks.push(val);
-      this.tasks.reverse();
+      this.saveTask(val);
     },
 
     activeEditTodo(t, i) {
@@ -135,6 +132,17 @@ export default {
     removeTodo(i, isTask) {
       // console.log(i, isTask);
       isTask ? this.tasks.splice(i, 1) : this.tasksDone.splice(i, 1);
+    },
+
+    saveTask(val) {
+      this.tasks.reverse();
+      this.tasks.push(val);
+      this.tasks.reverse();
+    },
+    saveTaskDone(val) {
+      this.tasksDone.reverse();
+      this.tasksDone.push(val);
+      this.tasksDone.reverse();
     },
   },
 };
