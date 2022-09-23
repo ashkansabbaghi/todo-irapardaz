@@ -56,14 +56,14 @@
     <v-card-text>
       <!-- component -->
       <v-row>
-        <task
+        <Task
           :todos="tasks"
           :isTask="true"
           @activeEditTodo="activeEditTodo"
           @removeTodo="removeTodo"
           @taskToDone="taskToDone"
         />
-        <task
+        <Task
           :todos="tasksDone"
           :isTask="false"
           @activeEditTodo="activeEditTodo"
@@ -76,10 +76,10 @@
 </template>
 
 <script>
-import task from "@/components/task";
+import Task from "@/components/Task";
 export default {
   name: "home",
-  components: { task },
+  components: { Task },
   data: () => ({
     isEdit: false,
     newTodo: "",
