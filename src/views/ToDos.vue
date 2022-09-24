@@ -55,6 +55,7 @@
 
     <v-card-text>
       <!-- component -->
+      <!-- <span>{{ task }}</span> -->
       <v-row>
         <Task
           :todos="tasks"
@@ -86,29 +87,38 @@ export default {
     tasks: [],
     tasksDone: [],
     index: null,
+    task: [],
   }),
+  created() {
+    this.tasks = this.getTask() || [];
+    this.tasksDone = this.getTaskDone() || [];
+  },
   methods: {
+    getTask() {
+      return JSON.parse(localStorage.getItem("tasks"));
+    },
+    getTaskDone() {
+      return JSON.parse(localStorage.getItem("tasksDone"));
+    },
     addTodo() {
       const val = this.newTodo;
       if (!val) return;
-      // console.log(val);
       this.saveTask(val);
       this.newTodo = "";
     },
 
     taskToDone(val, i) {
-      // console.log("taskToDone", i);
       this.tasks.splice(i, 1);
       this.saveTaskDone(val);
+      this.setStorage(true, this.tasks);
     },
     doneToTask(val, i) {
-      // console.log("doneToTask", i);
       this.tasksDone.splice(i, 1);
       this.saveTask(val);
+      this.setStorage(false, this.tasksDone);
     },
 
     activeEditTodo(t, i) {
-      // console.log(t, i);
       this.isEdit = true;
       this.newTodo = t;
       this.index = i;
@@ -116,10 +126,9 @@ export default {
 
     EditTodo() {
       const val = this.newTodo;
-      // console.log(val, this.index);
       if (!val) return;
       this.tasks.splice(this.index, 1, val);
-      console.log(this.tasks);
+      this.setStorage(true, this.tasks);
       this.reset();
     },
 
@@ -130,19 +139,32 @@ export default {
     },
 
     removeTodo(i, isTask) {
-      // console.log(i, isTask);
-      isTask ? this.tasks.splice(i, 1) : this.tasksDone.splice(i, 1);
+      if (isTask) {
+        this.tasks.splice(i, 1);
+        this.setStorage(true, this.tasks);
+      } else {
+        this.tasksDone.splice(i, 1);
+        this.setStorage(false, this.tasksDone);
+      }
     },
 
     saveTask(val) {
       this.tasks.reverse();
       this.tasks.push(val);
       this.tasks.reverse();
+      this.setStorage(true, this.tasks);
     },
     saveTaskDone(val) {
       this.tasksDone.reverse();
       this.tasksDone.push(val);
       this.tasksDone.reverse();
+      this.setStorage(false, this.tasksDone);
+    },
+
+    setStorage(isTask, items) {
+      isTask
+        ? localStorage.setItem("tasks", JSON.stringify(items))
+        : localStorage.setItem("tasksDone", JSON.stringify(items));
     },
   },
 };
